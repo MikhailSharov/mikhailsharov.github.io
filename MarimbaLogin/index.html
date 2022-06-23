@@ -8,11 +8,24 @@
 	  <p>Marimba Firebase Start</p>
 	  <h1 id="Marimba"></h1>
 
+    <div id="container">
+      <form id="loginForm">
+        <input type="text" id="email" name="email" placeholder="email@example.com">
+        <input type="password" id="password" name="password" placeholder="password">
+        <div id="lower">
+          <input type="submit" value="Login" id="login">
+          <input type="submit" value="Sign Up" id="signUp">
+        </div><!--/ lower-->
+      </form>
+    </div>
+
+
 	  <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js";
     import { getDatabase, ref, get, child, set } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js";
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -32,7 +45,7 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
-  
+    const auth = getAuth()
     var Marimba = document.getElementById("Marimba");
     const db = getDatabase(app);
     const textRef = ref(db);
@@ -46,9 +59,52 @@
     }).catch((error) => {
       console.error(error);
     });
+
+    //Create a User
+    const loginForm = document.getElementById("loginForm");
+    const signUpButton = document.getElementById("signUp");
+
+    signUpButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      const email = loginForm.email.value;
+      const password = loginForm.password.value;
+
+      console.log(email);
+      console.log(password);
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          }
+        ).catch((error) => {
+          alert(error.message);
+          console.log(error.code);
+          }
+        );
+
+    });
+
+    //Sign In and Redirect User
+    const loginButton = document.getElementById('login');
+    
+    loginButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      const email = loginForm.email.value;
+      const password = loginForm.password.value;
+      
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          window.location.replace("http://mikhailsharov.com/MarimbaMain");
+        }).catch((error) => {
+          alert(error.message);
+          console.log(error.code);
+        });
+    });
     </script>
 
 
   </body>
 </html>
+
+
 
