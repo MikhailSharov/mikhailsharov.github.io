@@ -74,12 +74,18 @@
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          }
-        ).catch((error) => {
+          const uid = user.uid;
+          set(ref(db, 'users/' + uid), {
+            email: email,
+            verified: false,
+            friends: ['defaultfriend'],
+            post: ""
+          });
+        }).catch((error) => {
           alert(error.message);
           console.log(error.code);
-          }
-        );
+      
+        });
 
     });
 
