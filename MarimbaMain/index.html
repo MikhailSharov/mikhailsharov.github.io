@@ -34,7 +34,7 @@
 				if (user) {
 					const uid = user.uid;
           const header = document.getElementById("Header");
-          header.innerText(`Hello +${uid}+!`);
+          header.innerText = `Hello +${uid}+!`;
 				} else {
 					console.log("No user detected");
 				}
