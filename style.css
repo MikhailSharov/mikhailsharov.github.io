@@ -1,13 +1,28 @@
 body {
     background-color: #FFF9EB;
 }
+div {
+    height: 750px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+span {
+    display: inline-block;
+    vertical-align: middle;
+    justify-content: center;
+    text-align: center;
+    line-height: 25px;
+}
 p {
     display: inline;
+    text-align: center;
 
 }
 
 a {
-    outline = none;
+    outline: none;
 }
 
 a:link {
